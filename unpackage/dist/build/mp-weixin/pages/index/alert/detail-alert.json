@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "告警处理",
+  "usingComponents": {
+    "uni-goods-nav": "/components/uni-goods-nav/uni-goods-nav",
+    "uni-tag": "/components/uni-tag/uni-tag",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "audit-idea": "/pages/index/audit-idea"
+  }
+}

@@ -4,12 +4,13 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": false
+    "urlCheck": false,
+    "postcss": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.7.0",
-  "appid": "touristappid",
-  "projectname": "IOTISM-APP",
+  "libVersion": "2.9.2",
+  "appid": "wx450aff80d4c2eb08",
+  "projectname": "欧科云平台",
   "condition": {
     "search": {
       "current": -1,

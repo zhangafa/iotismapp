@@ -1,0 +1,51 @@
+
+.place-detail {
+	/* margin: 27rpx 20rpx 104rpx 20rpx; */
+	padding-bottom: 0rpx;
+}
+.placeholder {
+	color: #8c8c8c;
+	line-height: 84rpx;
+	font-size: 31rpx;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+	text-align: right;
+}
+.my-uni-input {
+	line-height: 84rpx;
+	font-size: 31rpx;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+	text-align: right;
+}
+.cu-form-group .time-content {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	padding-right: 33rpx;
+	overflow: hidden;
+	position: relative;
+}
+.cu-form-group .time-content::after {
+	font-family: cuIcon;
+	display: block;
+	content: "\E6A3";
+	position: absolute;
+	font-size: 31rpx;
+	color: #8799a3;
+	line-height: 84rpx;
+	width: 50rpx;
+	text-align: center;
+	top: 0;
+	bottom: 0;
+	right: -16rpx;
+	margin: auto;
+}
+

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "mescroll-uni": "/components/mescroll-uni/mescroll-uni",
+    "uni-card": "/components/uni-card/uni-card",
+    "uni-tag": "/components/uni-tag/uni-tag",
+    "uni-icons": "/components/uni-icons/uni-icons"
+  },
+  "component": true
+}

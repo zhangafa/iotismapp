@@ -4,15 +4,15 @@
  */
 export default {
 	config: {
-		baseUrl: "https://iot.proudsmart.com/",
+		baseUrl: "http://120.25.106.75/",
 		header: {
 			'Content-Type':'text/plain;charset=UTF-8'
 		},  
 		data: {},
 		method: "POST",
 		dataType: "json",  /* 如设为json，会对返回的数据做一次 JSON.parse */
-		xhrFields: {
-			withCredentials: true
+		xhrFields:{ /* H5模式下不起作用 */
+			withCredentials:true
 		},
 		crossDomain: true,
 		success() {},
@@ -30,7 +30,7 @@ export default {
 		options.baseUrl = options.baseUrl || this.config.baseUrl
 		options.dataType = options.dataType || this.config.dataType
 		options.url = options.baseUrl + options.url
-		options.data = options.data || {}
+		options.data = options.data
 		options.method = options.method || this.config.method
 		//TODO 加密数据
 		
@@ -61,6 +61,7 @@ export default {
 				}
 				// 统一的响应日志记录
 				_reslog(response)
+				
 				if (statusCode === 200) { //成功
 					if (response.data.code == 0) {
 						resolve(response.data)
@@ -88,14 +89,7 @@ export default {
 			
 			// 统一的请求日志记录
 			_reqlog(_config)
-
-			if (process.env.NODE_ENV === 'development') {
-				console.log("【" + _config.requestId + "】 地址：" + _config.url)
-				if (_config.data) {
-					console.log("【" + _config.requestId + "】 参数：" + JSON.stringify(_config.data))
-				}
-			}
-
+			
 			uni.request(_config);
 		});
 	},

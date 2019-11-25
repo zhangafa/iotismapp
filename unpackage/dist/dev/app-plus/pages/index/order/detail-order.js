@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"place-detail { padding-bottom: ",[0,104],"; }\n",],undefined,{path:"./pages/index/order/detail-order.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/index/order/detail-order.wxml') } }));

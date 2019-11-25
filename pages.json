@@ -3,7 +3,11 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "待办",
+				"enablePullDownRefresh": false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消, 点此查看H5端的取消方法... )
+				}
 			}
 		}, {
 			"path": "pages/login/login",
@@ -16,33 +20,77 @@
 				"navigationBarTitleText": "找回密码"
 			}
 		}, {
-			"path": "pages/user/user",
+			"path": "pages/index/order/detail-order",
+			"style": {
+				"navigationBarTitleText": "工单历史"
+			}
+		}, {
+			"path": "pages/index/order/adjust-order",
+			"style": {
+				"navigationBarTitleText": "工单处理"
+			}
+		}, {
+			"path": "pages/index/alert/adjust-alert",
+			"style": {
+				"navigationBarTitleText": "告警处理"
+			}
+		}, {
+			"path": "pages/file/file-preview",
+			"style": {
+				"navigationBarTitleText": "附件预览"
+			}
+		}, {
+			"path": "pages/device/index",
+			"style": {
+				"navigationBarTitleText": "设备"
+			}
+		}, {
+			"path": "pages/device/device-detail",
+			"style": {
+				"navigationBarTitleText": "设备详细"
+			}
+		}, {
+			"path": "pages/analysis/index",
+			"style": {
+				"navigationBarTitleText": "统计"
+			}
+		}, {
+			"path": "pages/user/index",
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
 		}
 	],
 	"tabBar": {
-		"color": "#7a7e83",
-		"selectedColor": "#0faeff",
+		"color": "#8a8a8a",
+		"selectedColor": "#4364F7",
 		"backgroundColor": "#ffffff",
 		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "static/img/home.png",
-				"selectedIconPath": "static/img/homeHL.png"
-			}, {
-				"pagePath": "pages/user/user",
-				"iconPath": "static/img/user.png",
-				"selectedIconPath": "static/img/userHL.png",
-				"text": "我的"
-			}
-		]
+			"pagePath": "pages/index/index",
+			"text": "待办",
+			"iconPath": "static/img/tabbar/todo.png",
+			"selectedIconPath": "static/img/tabbar/todoHL.png"
+		}, {
+			"pagePath": "pages/device/index",
+			"text": "设备",
+			"iconPath": "static/img/tabbar/project.png",
+			"selectedIconPath": "static/img/tabbar/projectHL.png"
+		}, {
+			"pagePath": "pages/analysis/index",
+			"text": "统计",
+			"iconPath": "static/img/tabbar/tongji.png",
+			"selectedIconPath": "static/img/tabbar/tongjiHL.png"
+		}, {
+			"pagePath": "pages/user/index",
+			"text": "我的",
+			"iconPath": "static/img/tabbar/user.png",
+			"selectedIconPath": "static/img/tabbar/userHL.png"
+		}]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uniapp-admin",
+		"navigationBarBackgroundColor": "#4364F7",
 		"backgroundColor": "#F8F8F8"
 	}
 }

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "统计",
+  "usingComponents": {
+    "project-time-table": "/pages/analysis/time-table",
+    "ucharts-demo": "/pages/analysis/ucharts-demo"
+  }
+}

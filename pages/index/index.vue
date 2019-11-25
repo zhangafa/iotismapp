@@ -1,246 +1,204 @@
 <template>
-	<view class="hbody">
-		<view class="top bgwhite">
-			<view class="ic_image ic_search fl"><img src="../../static/icons/ic_search.svg"></img></view>
-			<view class="ic_image ic_message fr"><img src="../../static/icons/ic_message.svg"></img></view>
-			<view class="ic_image ic_signin fr"><img src="../../static/icons/ic_signin.svg"></img></view>
-			<view class="ic_logo"><img src="../../static/images/index_logo.png"></img></view>
-		</view>
-		
-		<view class="uni-slide">
-			<swiper :indicator-dots="true" :autoplay="true" :interval="5000" :duration="1000">
-				<swiper-item v-for="(item,index) in itemList" :key="index">
-					<img :src="item.url" :alt="item.title"></img>
-				</swiper-item>
-			</swiper>
-		</view>
-		
-		<view class="uni-swiper-msg bgwhite mb20">
-			<view class="uni-swiper-msg-icon">
-				<img src="../../static/icons/ic-notification.svg"></img>
+	<view>
+		<uni-nav-bar :fixed="true" color="#333333" background-color="#4364F7" :border="false">
+			<view class="input-view">
+				<uni-icons type="search" size="22" color="#666666" />
+				<input v-model="searchVal" confirm-type="search" class="input" type="text" placeholder="搜索工单/告警" @confirm="search">
+				<uni-icons :color="'#999999'" v-if="searchVal!==''" class="icon-clear" type="clear" size="22" @click="clear" />
 			</view>
-			<swiper vertical="true" autoplay="true" circular="true" interval="3000">
-				<swiper-item v-for="(item, index) in msg" :key="index" class="uni-swiper-msg-con">
-					<navigator>{{item}}</navigator>
-				</swiper-item>
-			</swiper>
-		</view>
-		
-		<view class="content mb20">
-			<view class="bgwhite uni-nav">
-				<view class="uni-nav-con" v-for="(nav,index) in navList" :key="index">
-					<navigator :url="nav.path">
-						<view class="image-view">
-							<img class="uni-nav-image" :src="nav.url"></img>
-						</view>
-						<text class="uni-nav-title">{{nav.title}}</text>
-					</navigator>
-				</view>
-			</view>
-		</view>
-		<view class="content mb20">
-			<view class="title mb10">待办事项</view>
-			<view v-for="(item,index) in eventList" :key="index">
-				<view class="bgwhite event-box mb20">
-					<view class="event-box-top">
-						<view class="event-box-toptitle" @click="goDetail(item)">{{item.title}}</view>
-						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">
-							<text v-if="item.type==1">巡检</text>
-							<text v-if="item.type==2">其它</text>
-						</view>
-						<view class="alarmType" :class="{'bg1':item.alarmType=='1','bg2':item.alarmType=='2','bg3':item.alarmType=='3'}"></view>
+		</uni-nav-bar>
+
+		<uni-nav-bar :fixed="true" color="#333333" background-color="#4364F7" :border="false">
+			<scroll-view scroll-x scroll-with-animation :scroll-left="scrollLeft" style="z-index: 9999;">
+				<view class="tui-tabs-view tui-tabs-relative" style="height:80rpx;padding:0 30rpx;background:#FFFFFF;top:auto">
+					<view v-for="(item, index) in tabbar" :key="index" class="tui-tabs-item" style="width:50%" @tap.stop="swichNav(index)">
+						<view class="tui-tabs-title" :class="{'tui-tabs-active':currentTab==index,'tui-tabs-disabled':item.disabled}"
+						 :style="{color:currentTab==index?'#5677fc':'#666',fontSize:'28rpx',lineHeight:'28rpx',fontWeight:false && currentTab==index?'bold':'normal'}">{{item.name}}</view>
 					</view>
-					<view class="event-box-con">
-						<view class="event-box-conleft">
-							<text>{{item.code}}</text>
-							<view>
-								<text class="mr10">{{item.user}}</text><text>{{item.time}}</text>
-							</view>
-							<text class="fontcolor999">{{item.createTime}}</text>
-						</view>
-						<view class="event-box-conright">
-							<text>{{item.content}}</text>
-						</view>
-					</view>
+					<view class="tui-tabs-slider" :style="{transform:'translateX('+scrollLeft+'px)',width:'68rpx',height:'6rpx',bottom:'0rpx',background:'#5677fc'}"></view>
 				</view>
-			</view>
-		</view>
+			</scroll-view>
+		</uni-nav-bar>
+
+		<swiper class="tab-content" :current="currentTab" duration="300" @change="switchTab" :style="{height:winHeight+'px'}">
+			<swiper-item>
+				<scroll-view scroll-y class="scoll-y">
+					<audit-order ref="auditOrderRef"></audit-order>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scroll-y class="scoll-y">
+					<audit-alert ref="auditAlertRef"></audit-alert>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import uniIcons from '@/components/uni-icons/uni-icons.vue'
+	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+	import auditAlert from './alert/audit-alert'
+	import auditOrder from './order/audit-order'
+
 	export default {
-		computed: mapState(['hasLogin', 'userName']),
-		onLoad() {
-			/**
-			 * 如果没有登录，直接跳转到登录页面
-			 */
-			if (!this.hasLogin) {
-				//reLaunch关闭所有的页面，跳转
-			    uni.reLaunch({
-			        url: '../login/login'
-			    });
-			} else {
-				
-			}
+		components: {
+			uniIcons,
+			uniNavBar,
+			auditAlert,
+			auditOrder
 		},
 		data() {
 			return {
-				itemList: [
-					{title:'img1',url:'../../static/images/slide.jpg'},
-					{title:'img2',url:'../../static/images/slide.jpg'},
-				],
-				msg : [
-					'uni-app行业峰会频频亮相，开发者反响热烈',
-					'DCloud完成B2轮融资，uni-app震撼发布',
-					'36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章'
-				],
-				navList:[
-					{title:'值班管理',url:'../../static/icons/ic_duty.svg',path:'/pages/env/index'},
-					{title:'巡检管理',url:'../../static/icons/ic_polling.svg',path:'/pages/env/index'},
-					{title:'工单管理',url:'../../static/icons/ic_workorder.svg',path:'/pages/env/index'},
-					{title:'资产管理',url:'../../static/icons/ic_property.svg',path:'/pages/env/index'},
-					{title:'我的关注',url:'../../static/icons/ic_myfocus.svg',path:'/pages/env/index'},
-					{title:'知识管理',url:'../../static/icons/ic_knowledge.svg',path:'/pages/env/index'},
-					{title:'容量管理',url:'../../static/icons/ic_capacity.svg',path:'/pages/env/index'},
-					{title:'更多',url:'../../static/icons/ic_more.svg',path:'/pages/env/index'},
-				],
-				eventList:[
-					{id:'1',title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
-					{id:'2',title:'机房001配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'2',content:'待执行'},
-					{id:'3',title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'},
-				]
+				bgColor: '#FFFFFF',
+				tabbar: [{
+					name: '待处理工单'
+				}, {
+					name: '待处理告警'
+				}],
+				winHeight: "", // 窗口高度
+				currentTab: 0, // 预设当前项的值
+				scrollLeft: 0, // tab标题的滚动条位置
+				searchVal: ''
+			}
+		},
+		onLoad() {
+			//高度自适应
+			uni.getSystemInfo({
+				success: res => {
+					this.winHeight = res.windowHeight
+					this.winWidth = res.windowWidth
+					this.checkCor()
+				}
+			})
+		},
+		onShow(e) {
+			let pages = getCurrentPages()
+			let currPage = pages[pages.length - 1]
+			if (currPage.isDoRefresh === true) {
+				currPage.isDoRefresh = false
+				this.search()
 			}
 		},
 		methods: {
-			goDetail:function(item){
-				uni.navigateTo({
-					url: "/pages/workOrder/detail?detail=" + encodeURIComponent(JSON.stringify(item))
-				})
+			// swichNav(e) {
+			// 	this.currentTab = e.index
+			// },
+			// 滚动切换标签样式
+			switchTab(e) {
+				this.currentTab = e.detail.current
+				this.checkCor()
 			},
+			// 判断当前滚动超过一屏时，设置tab标题滚动条。
+			checkCorSwitchTab() {
+				if (this.currentTab > 3) {
+					// 这里距离按实际计算
+					this.scrollLeft = 300
+				} else {
+					this.scrollLeft = 0
+				}
+			},
+			checkCor() {
+				let tabsNum = this.tabbar.length
+				let padding = this.winWidth / 750 * 30
+				let width = this.winWidth - padding * 2
+				let left = (width / tabsNum - (this.winWidth / 750 * 68)) / 2 + padding
+				let scrollLeft = left
+				if (this.currentTab > 0) {
+					scrollLeft = scrollLeft + (width / tabsNum) * this.currentTab
+				}
+				this.scrollLeft = scrollLeft
+			},
+			// 点击标题切换当前页时改变样式
+			swichNav(index) {
+				let item = this.tabbar[index]
+				if (item && item.disabled) return
+				if (this.currentTab == index) {
+					return false
+				} else {
+					this.currentTab = Number(index)
+				}
+			},
+			search() {
+				if (this.currentTab == 0) {
+					this.$refs.auditOrderRef.queryByName(this.searchVal)
+				} else if (this.currentTab == 1) {
+					this.$refs.auditAlertRef.queryByName(this.searchVal)
+				}
+			},
+			clear() {
+				this.searchVal = ''
+				this.search()
+			}
 		}
 	}
 </script>
 
 <style>
-	.top{
-		height: 60upx;
-		padding: 60upx 40upx 20upx 40upx;
-		position:relative;
+	/* tab start */
+	.tui-tabs-view {
+		width: 100%;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		z-index: 9999;
 	}
-	.ic_image,
-	.ic_image img{
-		width: 40upx;
-		height: 40upx;
+
+	.tui-tabs-relative {
+		position: relative;
 	}
-	.ic_message{
-		margin-left: 25upx;
+
+	.tui-tabs-fixed {
+		position: fixed;
+		left: 0;
 	}
-	.ic_logo{
-		position:absolute;
-		left: 50%;
-		margin-left: -110upx;
-		width: 220upx;
-		height: 40upx;
+
+	.tui-tabs-fixed::before,
+	.tui-tabs-relative::before {
+		content: '';
+		position: absolute;
+		border-bottom: 1rpx solid #eaeef1;
+		-webkit-transform: scaleY(0.5);
+		transform: scaleY(0.5);
+		bottom: 0;
+		right: 0;
+		left: 0;
 	}
-	.ic_logo img{
-		width:100%;
-		height:40upx;
+
+	.tui-unlined::before {
+		border-bottom: 0 !important
 	}
-	.uni-slide uni-swiper{
-		height: 450upx;
+
+	.tui-tabs-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-	.uni-slide img{
-		width:100%;
-		height:100%;
+
+	.tui-tabs-disabled {
+		opacity: .6;
 	}
-	.uni-swiper-msg-icon img{
-		width:80%;
-		height:80%;
+
+	.tui-tabs-title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		z-index: 2;
 	}
-	.uni-swiper-msg{
-		width: auto;
-		height: 60upx;
-		padding-left: 20upx;
-		padding-right: 20upx;
+
+	.tui-tabs-active {
+		transition: all 0.15s ease-in-out;
 	}
-	.uni-swiper-msg-con{
-		overflow:hidden;
+
+	.tui-tabs-slider {
+		border-radius: 40rpx;
+		position: absolute;
+		left: 0;
+		transition: all 0.15s ease-in-out;
+		z-index: 0;
 	}
-	.uni-nav{
-		 display: flex;
-		 flex-wrap:wrap;
-		 justify-content:center;
-		 padding-top: 15upx;
-	}
-	.uni-nav-con{
-		width: 25%;
-		text-align:center;
-		margin-bottom: 15upx;
-	}
-	.image-view{
-		width: 60upx;
-		height: 60upx;
-		margin: 10upx auto;
-	}
-	.image-view img{
-		width:100%;
-		height: 100%;
-	}
-	.event-box{
-		padding: 0 20upx;
-	}
-	.event-box-top,
-	.event-box-con{
-		display:flex;
-		position:relative;
-	}
-	.event-box-con{
-		color:#666;
-		padding-bottom: 20upx;
-	}
-	.event-box-toptitle{
-		max-width: 65%;
-		font-size:28upx;
-		overflow:hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		padding: 10upx 0;
-	}
-	.type{
-		margin: 15upx 5upx;
-		padding: 0 10upx;
-		border-radius: 10upx;
-	}
-	.event-box-conleft{
-		width: 80%;
-	}
-	.event-box-conright{
-		width: 20%;
-		text-align:right;
-		padding-top: 20upx;
-		color:#6FD8A5;
-		font-size: 28upx;
-	}
-	.alarmType{
-		width: 30upx;
-		height: 50upx;
-		position:absolute;
-		right:0;
-		top:0;
-	}
-	.alarmType:after{
-		content:'';
-		width:0;
-		height:0;
-		font-size:0;
-		line-height:0;
-		border-left:15upx solid transparent;
-		border-right: 15upx solid transparent;
-		border-bottom:15upx solid #fff;
-		position:absolute;
-		left:0;
-		bottom:0;
-	}
+
+	/* tab end */
 </style>

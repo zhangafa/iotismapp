@@ -1,33 +1,51 @@
 {
   "pages": [
-    "pages/main/main",
+    "pages/index/index",
     "pages/login/login",
-    "pages/reg/reg",
     "pages/pwd/pwd",
-    "pages/user/user"
+    "pages/index/order/detail-order",
+    "pages/index/order/adjust-order",
+    "pages/index/alert/adjust-alert",
+    "pages/file/file-preview",
+    "pages/device/index",
+    "pages/device/device-detail",
+    "pages/analysis/index",
+    "pages/user/index"
   ],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uniapp-admin",
+    "navigationBarBackgroundColor": "#4364F7",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
-    "color": "#7a7e83",
-    "selectedColor": "#0faeff",
+    "color": "#8a8a8a",
+    "selectedColor": "#4364F7",
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/main/main",
-        "text": "首页",
-        "iconPath": "static/img/home.png",
-        "selectedIconPath": "static/img/homeHL.png"
+        "pagePath": "pages/index/index",
+        "text": "待办",
+        "iconPath": "static/img/tabbar/todo.png",
+        "selectedIconPath": "static/img/tabbar/todoHL.png"
       },
       {
-        "pagePath": "pages/user/user",
+        "pagePath": "pages/device/index",
+        "text": "设备",
+        "iconPath": "static/img/tabbar/project.png",
+        "selectedIconPath": "static/img/tabbar/projectHL.png"
+      },
+      {
+        "pagePath": "pages/analysis/index",
+        "text": "统计",
+        "iconPath": "static/img/tabbar/tongji.png",
+        "selectedIconPath": "static/img/tabbar/tongjiHL.png"
+      },
+      {
+        "pagePath": "pages/user/index",
         "text": "我的",
-        "iconPath": "static/img/user.png",
-        "selectedIconPath": "static/img/userHL.png"
+        "iconPath": "static/img/tabbar/user.png",
+        "selectedIconPath": "static/img/tabbar/userHL.png"
       }
     ]
   },
@@ -37,7 +55,7 @@
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
-  "appname": "IOTISM-APP",
-  "compilerVersion": "2.3.3",
+  "appname": "欧科云平台",
+  "compilerVersion": "2.3.7",
   "usingComponents": {}
 }

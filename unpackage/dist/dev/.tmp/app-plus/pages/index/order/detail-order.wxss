@@ -1,0 +1,10 @@
+
+.place-detail {
+	/* margin: 27rpx 20rpx 104rpx 20rpx; */
+	padding-bottom: 104rpx;
+}
+
+/* .place-detail .uni-row {
+	margin: 5rpx 0;
+} */
+

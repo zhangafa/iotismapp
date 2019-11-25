@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/uni-nav-bar/uni-nav-bar"],{"00fe":function(t,n,e){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.default=void 0;var u=function(){return e.e("components/uni-status-bar/uni-status-bar").then(e.bind(null,"6adb"))},i=function(){return e.e("components/uni-icons/uni-icons").then(e.bind(null,"c935"))},r={name:"UniNavBar",components:{uniStatusBar:u,uniIcons:i},props:{title:{type:String,default:""},leftText:{type:String,default:""},rightText:{type:String,default:""},leftIcon:{type:String,default:""},rightIcon:{type:String,default:""},fixed:{type:[Boolean,String],default:!1},color:{type:String,default:"#000000"},backgroundColor:{type:String,default:"#FFFFFF"},statusBar:{type:[Boolean,String],default:!1},shadow:{type:[String,Boolean],default:!0},border:{type:[String,Boolean],default:!0}},methods:{onClickLeft:function(){this.$emit("click-left")},onClickRight:function(){this.$emit("click-right")}}};n.default=r},"4f2b":function(t,n,e){"use strict";e.r(n);var u=e("00fe"),i=e.n(u);for(var r in u)"default"!==r&&function(t){e.d(n,t,function(){return u[t]})}(r);n["default"]=i.a},"6b22":function(t,n,e){},"7e60":function(t,n,e){"use strict";var u=function(){var t=this,n=t.$createElement;t._self._c},i=[];e.d(n,"a",function(){return u}),e.d(n,"b",function(){return i})},d326:function(t,n,e){"use strict";var u=e("6b22"),i=e.n(u);i.a},fe11:function(t,n,e){"use strict";e.r(n);var u=e("7e60"),i=e("4f2b");for(var r in i)"default"!==r&&function(t){e.d(n,t,function(){return i[t]})}(r);e("d326");var a=e("2877"),o=Object(a["a"])(i["default"],u["a"],u["b"],!1,null,null,null);n["default"]=o.exports}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'components/uni-nav-bar/uni-nav-bar-create-component',
+    {
+        'components/uni-nav-bar/uni-nav-bar-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("fe11"))
+        })
+    },
+    [['components/uni-nav-bar/uni-nav-bar-create-component']]
+]);                

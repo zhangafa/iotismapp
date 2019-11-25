@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "待办",
+  "enablePullDownRefresh": false,
+  "bounce": "none",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "audit-alert": "/pages/index/alert/audit-alert",
+    "audit-order": "/pages/index/order/audit-order"
+  }
+}
